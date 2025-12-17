@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <style>
+        /* Body and background */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: playfair display, sans-serif;
+            font-size: 21px;
+            text-align: center;
+            background-color: #FFE4E1;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            color: #3d3d3d;
+        }
+
+        /* Soft floral background with gradient fade */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(to top, rgba(255, 228, 225, 0.95) 20%, rgba(255, 228, 225, 0.8) 60%, rgba(255, 228, 225, 0.6) 90%, transparent 100%),
+                url("Gallery/flower pic 2.jpg") no-repeat center bottom;
+            background-size: cover;
+            filter: blur(2px) brightness(1.05);
+            opacity: 0.65;
+            z-index: 0;
+        }
+
+        /* Header styling */
+        header {
+          background-color: #DB7093;
+          color: #FFFAF0;
+          padding: 40px 20px;   /* ⬅ makes it visibly wider */
+          text-align: center;
+          position: relative;
+          z-index: 2;
+          text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+          margin: 0;            /* ⬅ VERY IMPORTANT */
+          font-size: 2.2rem;
+          letter-spacing: 1px;
+        }
+
+       nav {
+            background-color: pink;        /* soft pink background */
+            border-radius: 100px;          /* fully rounded edges */
+            display: inline-block;         /* shrink to fit content */
+            padding: 15px 25px;            /* space inside the pill */
+            margin: 20px auto;             /* center horizontally */
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25); /* soft shadow */
+            position: relative;
+            z-index: 2;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+            background: none;
+        }
+
+        nav ul li a {
+            display: block;
+            color: black;
+            padding: 12px 20px;            /* padding around text */
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border-radius: 50px;           /* rounded buttons */
+        }
+
+        nav ul li a:hover {
+            background-color: #FFFAF0;
+            color: #DB7093;
+        }
+        /* Full-width big picture box at top */
+        .pic-box-large {
+            width: 100vw;
+            height: 500px;
+            position: relative;
+            background: url("Gallery/flower pic 2.jpg") no-repeat center center;
+            background-size: cover;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(219, 112, 147, 0.3);
+        }
+
+        /* Soft overlay */
+        .pic-box-large::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255, 228, 225, 0.7);
+            z-index: 1;
+        }
+
+        /* Text on top */
+        .pic-text-large {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            text-align: center;
+            color: #3d3d3d;
+            font-family: "Dancing Script", cursive;
+            padding: 20px;
+        }
+
+        .pic-text-large h2 {
+            color: #8B3A62;
+            font-size: 5em;
+            margin-bottom: 12px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .pic-text-large p {
+            color: #8B3A62;
+            font-size: 1.1em;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* Main content */
+        main {
+            flex: 1;
+            text-align: center;
+            padding: 40px 20px 120px 20px; /* reduced bottom padding */
+            width: 80%;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            color: #3d3d3d;
+            flex-wrap: wrap;
+        }
+
+        /* the first section of main */
+        .card-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 228, 225, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(219, 112, 147, 0.3);
+            padding: 20px;
+            margin: 10px auto 80px auto; /* smaller top margin for closer spacing */
+            max-width: 700px;
+        }
+
+        .card-image {
+            flex: 0 0 120px;
+            height: 120px;
+            margin-right: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-text {
+		    flex: 1;
+		    font-family: "Playfair Display", cursive;
+		    color: #2c2c2c; /* darker, more concentrated */
+		}
+
+		.card-text h3 {
+		    font-size: 1.6em;
+		    margin-bottom: 8px;
+		    color: #1a1a1a; /* even more solid */
+		}
+
+		.card-text p {
+		    font-size: 1.05em;
+		    line-height: 1.5;
+		    color: #2a2a2a; /* solid readable color */
+		}
+
+
+        /* Footer */
+        footer {
+            background: #DB7093;
+            color: black;
+            text-align: center;
+            padding: 15px 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            font-size: 0.9em;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            z-index: 2;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            main {
+                width: 90%;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            .pic-box-large {
+                height: 400px;
+            }
+
+            .pic-text-large h2 {
+                font-size: 2.5em;
+            }
+
+            .pic-text-large p {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .card-box {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .card-image {
+                margin-right: 0;
+                margin-bottom: 15px;
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        /* the second section of main */
+        .card-box.right-image {
+            display: flex;
+            align-items: center; /* vertically center text with image */
+            background: rgba(255, 228, 225, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(219, 112, 147, 0.3);
+            padding: 20px;
+            margin: 10px auto 80px auto; /* spacing from main content and footer */
+            max-width: 700px;
+        }
+
+        .card-box.right-image .card-text {
+            flex: 1;
+            font-family: "Playfair Display", cursive;
+            color: #2c2c2c; /* solid, concentrated text */
+            text-align: Center;
+        }
+
+        .card-box.right-image .card-text h3 {
+            font-size: 1.6em;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .card-box.right-image .card-text p {
+            font-size: 1.05em;
+            line-height: 1.5;
+            color: #2a2a2a;
+        }
+
+        .card-box.right-image .card-image {
+            flex: 0 0 120px;
+            height: 120px;
+            margin-left: 20px; /* space between text and image */
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-box.right-image .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Responsive: stack on small screens */
+        @media (max-width: 500px) {
+            .card-box.right-image {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .card-box.right-image .card-image {
+                margin-left: 0;
+                margin-bottom: 15px;
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        /* the third section of main */
+        .card-box {
+            display: flex;
+            align-items: center; /* vertically center text with image */
+            background: rgba(255, 228, 225, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(219, 112, 147, 0.3);
+            padding: 20px;
+            margin: 10px auto 80px auto; /* spacing from main content and footer */
+            max-width: 700px;
+        }
+
+        .card-image {
+            flex: 0 0 120px;
+            height: 120px;
+            margin-right: 20px; /* space between image and text */
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-text {
+            flex: 1;
+            font-family: "Playfair Display", cursive;
+            color: #2c2c2c; /* solid, concentrated text */
+            text-align: center;
+        }
+
+        .card-text h3 {
+            font-size: 1.6em;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .card-text p {
+            font-size: 1.05em;
+            line-height: 1.5;
+            color: #2a2a2a;
+        }
+
+        /* Responsive: stack on small screens */
+        @media (max-width: 500px) {
+            .card-box {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .card-image {
+                margin-right: 0;
+                margin-bottom: 15px;
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        /* Extra gap for the last card */
+        .card-box:last-of-type {
+            margin-bottom: 150px; /* increase space before footer */
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ALIYA NABILAH'S PERSONAL WEBSITE</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="aboutme.html">About Me</a></li>
+            <li><a href="experience.html">Experience</a></li>
+            <li><a href="family.html">Family</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li><a href="friends.html">Friends</a></li>
+            <li><a href="favourites.html">Favourites</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+    </nav>
+
+    <!-- Full-width big picture box -->
+    <div class="pic-box-large">
+        <div class="pic-text-large">
+            <h2>My Experience</h2>
+            <p>I will share about my experience here</p>
+        </div>
+    </div>
+
+    <main>
+        <p>More content about my experiences goes here...</p>
+    </main>
+
+    <div class="card-box">
+        <div class="card-image">
+            <img src="Gallery/pic 4.jpg" alt="Lovely memory">
+        </div>
+        <div class="card-text">
+            <h3>Internship</h3>
+            <p>This is me doing some work at my internship place in semester break. It was so fun that I still remember the moments when I work here.</p>
+        </div>
+    </div>
+
+    <div class="card-box right-image">
+    <div class="card-text">
+        <h3>Hiking</h3>
+        <p>This is my friend and me at Jeli after hiking. It was the best experience we have together. The view is also pretty.</p>
+    </div>
+    <div class="card-image">
+        <img src="Gallery/pic 5.jpg" alt="Lovely memory">
+    </div>
+    </div>
+
+     <div class="card-box">
+        <div class="card-image">
+            <img src="Gallery/pic 6.jpg" alt="Lovely memory">
+        </div>
+        <div class="card-text">
+            <h3>Visiting UiTM Archives</h3>
+            <p>This is me recently went to the UiTM Archives to learnt and see how they keep and manage the records of UiTM. It was a fun activity.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 This website is for educational purposes only for Aliya Nabilah Mohd Kadri</p>
+    </footer>
+</body>
+</html>

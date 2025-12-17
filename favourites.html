@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Favourites</title>
+  <style>
+    /* ===== Base Styles ===== */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Playfair Display', sans-serif;
+      font-size: 21px;
+      text-align: center;
+      color: #3d3d3d;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-color: #FFE4E1;
+      position: relative;
+    }
+
+    /* ===== Static Background ===== */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(
+        to top,
+        rgba(255,228,225,0.95) 20%,
+        rgba(255,228,225,0.8) 60%,
+        rgba(255,228,225,0.6) 90%,
+        transparent 100%
+      ),
+      url("Gallery/flower pic 2.jpg") no-repeat center bottom;
+      background-size: cover;
+      background-attachment: fixed;
+      filter: blur(2px) brightness(1.05);
+      opacity: 0.65;
+      z-index: 0;
+    }
+
+    body > * { position: relative; z-index: 1; }
+
+    header {
+      background-color: #DB7093;
+      color: #FFFAF0;
+      padding: 20px;
+      text-align: center;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    nav {
+        background-color: pink;        /* soft pink background */
+        border-radius: 100px;          /* fully rounded edges */
+        display: inline-block;         /* shrink to fit content */
+        padding: 15px 25px;            /* space inside the pill */
+        margin: 20px auto;             /* center horizontally */
+        box-shadow: 0 6px 20px rgba(0,0,0,0.25); /* soft shadow */
+        position: relative;
+        z-index: 2;
+    }
+
+    nav ul {
+        list-style-type: none;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+        background: none;
+    }
+
+    nav ul li a {
+        display: block;
+        color: black;
+        padding: 12px 20px;            /* padding around text */
+        text-decoration: none;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        border-radius: 50px;           /* rounded buttons */
+    }
+
+    nav ul li a:hover {
+        background-color: #FFFAF0;
+        color: #DB7093;
+    }
+
+    main {
+      flex: 1;
+      width: 85%;
+      max-width: 1200px;
+      margin: 40px auto 150px auto;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Transparent Title Box */
+    main h2 {
+      background-color: rgba(255, 182, 193, 0.4);
+      display: inline-block;
+      padding: 15px 25px;
+      border-radius: 15px;
+      color:#8B3A62;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      margin-bottom: 30px;
+      width: 350px;
+      text-align: center;
+    }
+
+    main p { color: #DB7093; margin-bottom: 40px; font-size: 30px; }
+
+    footer {
+      background: #DB7093; color: black;
+      text-align: center;
+      padding: 15px 20px;
+      width: 100%; font-size: 0.9em;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+      position: fixed; bottom:0; left:0;
+      z-index: 2;
+    }
+
+    /* ===== Dreamy Clouds ===== */
+    .clouds-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .cloud {
+  	  position: absolute;
+	  width: 420px;
+	  height: 190px;
+	  background: rgba(255,255,255,0.8); /* soft white with slight transparency */
+	  border-radius: 50%;
+	  filter: blur(15px);
+	  animation: moveCloud linear infinite;
+	}
+
+
+    @keyframes moveCloud {
+      0% { transform: translateX(-40%); opacity: 0.7; }
+      50% { opacity: 1; }
+      100% { transform: translateX(140%); opacity: 0.7; }
+    }
+
+    /* ===== Favourites Carousel ===== */
+    .favourites-carousel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fav-item {
+      background-color: rgba(255,240,245,0.5);
+      padding: 30px;
+      border-radius: 15px;
+      width: 600px;
+      height: 350px;
+      display: none;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      box-shadow: 0 0 0 rgba(219,112,147,0.3);
+      transition: transform 0.3s ease, box-shadow 1.5s ease-in-out;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fav-item.active { display: flex; box-shadow: 0 0 20px rgba(219,112,147,0.5); }
+
+    .fav-item::before {
+      content: '';
+      position: absolute;
+      top: -2px; left: -2px; right: -2px; bottom: -2px;
+      border-radius: 15px;
+      background: linear-gradient(120deg, rgba(255,255,255,0.0), rgba(255,255,255,0.3), rgba(255,255,255,0.0));
+      pointer-events: none;
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .fav-item h3 {
+      color: #DB7093;
+      margin-bottom: 20px;
+      font-size: 1.6em;
+    }
+
+    .fav-content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .fav-content img {
+      width: 180px;
+      height: 180px;
+      border-radius: 15px;
+      object-fit: contain;
+    }
+
+    .fav-text p {
+      margin: 0;
+      color: #555;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    .favourites-carousel button {
+      background: #DB7093;
+      color: #fff;
+      border: none;
+      font-size: 1.5em;
+      padding: 12px 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s;
+      z-index: 3;
+    }
+
+    .favourites-carousel button:hover { background: #FF69B4; }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 15px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(219,112,147,0.5);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .dot.active { background-color: #DB7093; }
+
+    /* ===== Sparkles ===== */
+    .sparkle-container {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+      overflow: visible;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: rgba(255,192,203,0.9);
+      border-radius: 50%;
+      opacity: 0;
+      animation: sparkleAnim 3s infinite;
+    }
+
+    @keyframes sparkleAnim {
+      0% { opacity: 0; transform: translateY(0) scale(0.5); }
+      50% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-50px) scale(1); }
+    }
+
+    .light {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 50%;
+      animation: floatLight 12s ease-in-out infinite;
+      filter: blur(2px);
+      z-index: 0;
+    }
+
+    @keyframes floatLight {
+      0% { transform: translateY(0) translateX(0); opacity: 0.5; }
+      50% { transform: translateY(-80px) translateX(40px); opacity: 1; }
+      100% { transform: translateY(-160px) translateX(-40px); opacity: 0; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>ALIYA NABILAH'S PERSONAL WEBSITE</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="aboutme.html">About Me</a></li>
+      <li><a href="experience.html">Experience</a></li>
+      <li><a href="family.html">Family</a></li>
+      <li><a href="education.html">Education</a></li>
+      <li><a href="friends.html">Friends</a></li>
+      <li><a href="favourites.html">Favourites</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h2>My Favourites 💖</h2>
+    <p>Here are some things I love the most!</p>
+
+    <div class="light" style="left: 15%; animation-delay: 0s;"></div>
+    <div class="light" style="left: 45%; animation-delay: 3s;"></div>
+    <div class="light" style="left: 75%; animation-delay: 5s;"></div>
+
+    <!-- Dreamy pastel clouds -->
+    <div class="clouds-container">
+      <div class="cloud" style="top:20%; left:-300px; animation-duration:20s;"></div>
+      <div class="cloud" style="top:40%; left:-600px; animation-duration:40s;"></div>
+      <div class="cloud" style="top:60%; left:-800px; animation-duration:30s;"></div>
+      <div class="cloud" style="top:30%; left:100%; animation-duration:50s; animation-delay:10s;"></div>
+      <div class="cloud" style="top:50%; left:100%; animation-duration:60s; animation-delay:15s;"></div>
+    </div>
+
+    <!-- Sparkles -->
+    <div class="sparkle-container">
+      <div class="sparkle" style="left:5%; top:10%; animation-delay:0s;"></div>
+      <div class="sparkle" style="left:15%; top:20%; animation-delay:0.5s;"></div>
+      <div class="sparkle" style="left:25%; top:30%; animation-delay:1s;"></div>
+      <div class="sparkle" style="left:35%; top:40%; animation-delay:1.5s;"></div>
+      <div class="sparkle" style="left:45%; top:15%; animation-delay:0.2s;"></div>
+      <div class="sparkle" style="left:55%; top:25%; animation-delay:0.7s;"></div>
+      <div class="sparkle" style="left:65%; top:35%; animation-delay:1.2s;"></div>
+      <div class="sparkle" style="left:75%; top:20%; animation-delay:0.3s;"></div>
+      <div class="sparkle" style="left:85%; top:30%; animation-delay:0.8s;"></div>
+    </div>
+
+    <!-- Carousel -->
+    <div class="favourites-carousel">
+      <button class="prev">&#8592;</button>
+
+      <div class="fav-item">
+        <h3>Favourite Food</h3>
+        <div class="fav-content">
+          <img src="Gallery/pic fav 1.jpg" alt="Food">
+          <div class="fav-text"><p>I love spaghetti carbonara made by my mother.</p></div>
+        </div>
+      </div>
+
+      <div class="fav-item">
+        <h3>Favourite Drink</h3>
+        <div class="fav-content">
+          <img src="Gallery/pic fav 2.jpg" alt="Drink">
+          <div class="fav-text"><p>I'm a matcha lover who will hunt the world for it 🥤.</p></div>
+        </div>
+      </div>
+
+      <div class="fav-item">
+        <h3>Favourite Song</h3>
+        <div class="fav-content">
+          <img src="Gallery/pic fav 3.jpg" alt="Song">
+          <div class="fav-text"><p>I enjoy soft pop and chill music 🎵.</p></div>
+        </div>
+      </div>
+
+      <div class="fav-item">
+        <h3>Favourite Movie</h3>
+        <div class="fav-content">
+          <img src="Gallery/pic fav 4.jpg" alt="Movie">
+          <div class="fav-text"><p>I love watching Ghibli movies for me-time 🎬💖.</p></div>
+        </div>
+      </div>
+
+      <div class="fav-item">
+        <h3>Favourite Book</h3>
+        <div class="fav-content">
+          <img src="Gallery/pic fav 5.jpg" alt="Book">
+          <div class="fav-text"><p>I enjoy soft romance and historical books 📖✨.</p></div>
+        </div>
+      </div>
+
+      <div class="fav-item">
+        <h3>Favourite Color</h3>
+        <div class="fav-content">
+          <img src="Gallery/pic fav 6.jpg" alt="Color">
+          <div class="fav-text"><p>Soft pink is my favorite color 🌸.</p></div>
+        </div>
+      </div>
+
+      <button class="next">&#8594;</button>
+    </div>
+
+    <div class="carousel-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 This website is for educational purposes only — Aliya Nabilah Mohd Kadri</p>
+  </footer>
+
+  <script>
+    const items = document.querySelectorAll('.fav-item');
+    const dots = document.querySelectorAll('.dot');
+    let current = 0;
+
+    function showItem(index){
+      items.forEach((item,i)=>{
+        item.classList.remove('active');
+        dots[i].classList.remove('active');
+        if(i===index){
+          item.classList.add('active');
+          dots[i].classList.add('active');
+        }
+      });
+    }
+
+    document.querySelector('.next').addEventListener('click', ()=>{
+      current = (current +1) % items.length;
+      showItem(current);
+    });
+
+    document.querySelector('.prev').addEventListener('click', ()=>{
+      current = (current -1 + items.length) % items.length;
+      showItem(current);
+    });
+
+    dots.forEach((dot,i)=>{
+      dot.addEventListener('click', ()=>{
+        current = i;
+        showItem(current);
+      });
+    });
+
+    showItem(current);
+  </script>
+
+</body>
+</html>
+
+

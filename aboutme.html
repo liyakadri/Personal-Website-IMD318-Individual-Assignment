@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>About Me</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Playfair Display", sans-serif;
+      font-size: 21px;
+      text-align: center;
+      background-color: #FFE4E1;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      color: #3d3d3d;
+    }
+
+    /* Soft floral background image with gentle fade */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(to top, rgba(255, 228, 225, 0.95) 20%, rgba(255, 228, 225, 0.8) 60%, rgba(255, 228, 225, 0.6) 90%, transparent 100%),
+        url("Gallery/flower pic 2.jpg") no-repeat center bottom;
+      background-size: cover;
+      filter: blur(2px) brightness(1.05);
+      opacity: 0.65;
+      z-index: 0;
+    }
+
+    header {
+      background-color: #DB7093;
+      color: #FFFAF0;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    nav {
+        background-color: pink;        /* soft pink background */
+        border-radius: 100px;          /* fully rounded edges */
+        display: inline-block;         /* shrink to fit content */
+        padding: 15px 25px;            /* space inside the pill */
+        margin: 20px auto;             /* center horizontally */
+        box-shadow: 0 6px 20px rgba(0,0,0,0.25); /* soft shadow */
+        position: relative;
+        z-index: 2;
+    }
+
+    nav ul {
+        list-style-type: none;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+        background: none;
+    }
+
+    nav ul li a {
+        display: block;
+        color: black;
+        padding: 12px 20px;            /* padding around text */
+        text-decoration: none;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        border-radius: 50px;           /* rounded buttons */
+    }
+
+    nav ul li a:hover {
+        background-color: #FFFAF0;
+        color: #DB7093;
+    }
+
+    main {
+      flex: 1;
+      padding: 60px 20px;
+      width: 90%;
+      max-width: 1100px;
+      margin: 40px auto 120px auto;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    /* Curvy photo shape */
+    .about-image {
+      width: 320px;
+      height: 320px;
+      background-image: url("Gallery/pic 2.jpg");
+      background-size: cover;
+      background-position: center;
+      clip-path: path("M80,0 Q280,0 300,160 Q260,320 120,300 Q0,240 0,80 Z");
+      border: 5px solid #f9cadb;
+      box-shadow: 0 6px 20px rgba(219, 112, 147, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .about-image:hover {
+      transform: scale(1.05);
+    }
+
+    .about-text {
+      flex: 1;
+      text-align: left;
+      color: #4A2C2A;
+      line-height: 1.7;
+      font-family: "Playfair Display", sans-serif;
+      background-color: rgba(255, 228, 230, 0.7);
+      border-radius: 30px;
+      padding: 30px;
+      box-shadow: 0 0 25px rgba(255, 182, 193, 0.5);
+    }
+
+    .about-text h2 {
+      color: #8B3A62;
+      font-size: 2em;
+      margin-bottom: 10px;
+      font-family: "Playfair Display", sans-serif;
+    }
+
+    .about-text p {
+      font-size: 18px;
+      max-width: 600px;
+      font-family: Playfair Display, sans-serif;
+      color: #4A2C2A;
+    }
+
+    footer {
+      background: #DB7093;
+      color: black;
+      text-align: center;
+      padding: 15px 0;
+      width: 100%;
+      font-size: 0.9em;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 2;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .about-text {
+        text-align: center;
+      }
+
+      .about-image {
+        width: 260px;
+        height: 260px;
+      }
+    }
+
+    /* Decorative Divider */
+    .divider {
+      position: relative;
+      width: 80%;
+      margin: 50px auto 40px auto;
+      text-align: center;
+    }
+
+    .divider hr {
+      border: none;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #DB7093, transparent);
+      width: 100%;
+      margin: 0;
+      opacity: 0.6;
+    }
+
+    .divider span {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(255, 228, 225, 0.85);
+      padding: 0 12px;
+      font-size: 1.5em;
+      border-radius: 50%;
+    }
+
+    /* Info Cards Layout */
+    .info-cards {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin: 0 auto;
+      width: 90%;
+      max-width: 1000px;
+    }
+
+    /* Dreamy Cards with Dotted Border and Floating */
+    .card {
+      position: relative;
+      background: rgba(255, 240, 245, 0.8);
+      backdrop-filter: blur(6px);
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(219, 112, 147, 0.25);
+      padding: 20px;
+      width: 200px;
+      overflow: hidden;
+      animation: floatCard 4s ease-in-out infinite;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 2px dotted #f7c6d9;
+      border-radius: 18px;
+      pointer-events: none;
+    }
+
+   .card:hover {
+	  transform: translateY(-8px) rotate(-1deg);
+	  box-shadow: 0 8px 20px rgba(219, 112, 147, 0.5);
+	  background: rgba(255, 240, 245, 0.95);
+	}
+
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .card h3 {
+      font-family: "Playfair Display", sans-serif;
+      color: #8B3A62;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 3px rgba(255,255,255,0.5);
+    }
+
+    .card p {
+      font-family: "Playfair Display", sans-serif;
+      color: #4A2C2A;
+      font-size: 17px;
+    }
+
+	    .particle {
+	  position: absolute;
+	  width: 6px;
+	  height: 6px;
+	  background: #FFC0CB;
+	  border-radius: 50%;
+	  opacity: 0.7;
+	  animation: drift 6s linear infinite;
+	}
+
+	@keyframes drift {
+	  0% { transform: translate(0,0) scale(1); opacity:0.7; }
+	  50% { transform: translate(50px,-50px) scale(1.2); opacity:0.9; }
+	  100% { transform: translate(0,0) scale(1); opacity:0.7; }
+	}
+
+	body {
+	  background: linear-gradient(120deg, #FFE4E1, #FFD1DC, #FFB6C1);
+	  background-size: 400% 400%;
+	  animation: gradientMove 15s ease infinite;
+	}
+
+	@keyframes gradientMove {
+	  0%{background-position:0% 50%;}
+	  50%{background-position:100% 50%;}
+	  100%{background-position:0% 50%;}
+	}
+
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ALIYA NABILAH'S PERSONAL WEBSITE</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="aboutme.html">About Me</a></li>
+      <li><a href="experience.html">Experience</a></li>
+      <li><a href="family.html">Family</a></li>
+      <li><a href="education.html">Education</a></li>
+      <li><a href="friends.html">Friends</a></li>
+      <li><a href="favourites.html">Favourites</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="about-image"></div>
+
+    <div class="about-text">
+      <h2>About Me 🌷</h2>
+      <p>Hello! My name is <b>Aliya Nabilah</b>.  
+      I’m someone who loves creativity, gentle colors, and aesthetic design.   
+      Here, you’ll find stories about my experiences, my favorite people, and the things that make me smile.</p>
+    </div>
+
+    <div class="divider">
+      <hr>
+      <span>🌷</span>
+    </div>
+
+    <section class="info-cards">
+      <div class="card">
+        <h3>Age</h3>
+        <p>20 Years Old</p>
+      </div>
+      <div class="card">
+        <h3>Birthday</h3>
+        <p>23 April 2005</p>
+      </div>
+      <div class="card">
+        <h3>From</h3>
+        <p>Pahang, Malaysia</p>
+      </div>
+      <div class="card">
+        <h3>Personality</h3>
+        <p>Outgoing person, Generosity & Soft-Hearted 🌷</p>
+      </div>
+    </section>
+
+    <hr style="border: 0; height: 2px; background-color: #f2a6c3; 
+      box-shadow: 0 2px 6px rgba(219, 112, 147, 0.4); 
+      width: 70%; margin: 50px auto; border-radius: 2px;">
+  </main>
+
+  <footer>
+    <p>&copy; 2025 This website is for educational purposes only — Aliya Nabilah Mohd Kadri</p>
+  </footer>
+</body>
+</html>

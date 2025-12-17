@@ -50,19 +50,18 @@
    header {
       background-color: #DB7093;
       color: #FFFAF0;
-      padding: 40px 20px;  /* ⬅ top/bottom | left/right */
-      height: 65px;
+      padding: 48px 20px;  /* ⬅ top/bottom | left/right */
       text-align: center;
       position: relative;
       z-index: 2;
       text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+
+      display: flex;
+      justify-content: center; /* horizontal center */
+      align-items: center;     /* vertical center */
     }
-
-
-
-        header h1 {
-        margin: 5px 0;  /* reduces top and bottom margin */
-        padding: 0;      /* remove extra padding if needed */
+      header h1 {
+      margin: 0;  /* reduces top and bottom margin */
     }
 
   nav {
@@ -427,3 +426,4 @@
   </script>
 </body>
 </html>
+
